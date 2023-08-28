@@ -3,11 +3,12 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { emitter } from "../../utils/emitter";
-
-class ModalUser extends Component {
+import _ from "lodash";
+class ModalEditUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       email: "",
       passWord: "",
       firstName: "",
@@ -17,46 +18,30 @@ class ModalUser extends Component {
       gender: "",
       roleId: "",
     };
-    this.listenToEmitter();
   }
 
-  listenToEmitter() {
-    emitter.on("EVENT_CLEAR_MODAL_DATA", () => {
-      // reset state
+  componentDidMount() {
+    let user = this.props.currentUser;
+    if (user && !_.isEmpty(user)) {
       this.setState({
-        email: "",
-        passWord: "",
-        firstName: "",
-        lastName: "",
-        address: "",
-        phonenumber: "",
-        gender: "",
-        roleId: "",
+        id: user.id,
+        email: user.email,
+        passWord: "hardCode",
+        firstName: user.firstName,
+        lastName: user.lastName,
+        address: user.address,
+        phonenumber: user.phonenumber,
+        gender: user.gender,
+        roleId: user.roleId,
       });
-    });
+    }
   }
-  componentDidMount() {}
 
   toggle = () => {
     this.props.toggleFromParent();
   };
 
   handleOnchangeInput = (event, id) => {
-    // this.setState({
-    //   [event.target.name]: event.target.value,
-    // });
-
-    //===================Bad code 🤬🤬🤬 ====///////////
-    // this.state[id] = event.target.value;
-    // this.setState(
-    //   {
-    //     ...this.state,
-    //   },
-    //   () => {
-    //     console.log("check bad state :", this.state);
-    //   }
-    // );
-    //===================Good code 👌👌👌 ====///////////
     let copyState = { ...this.state };
     copyState[id] = event.target.value;
     this.setState({
@@ -77,7 +62,7 @@ class ModalUser extends Component {
       "roleId",
     ];
     for (let i = 0; i < arrInput.length; i++) {
-      if (!this.state[arrInput[i]]) {
+      if (!this.state[arrInput[i]] && arrInput[i] !== "gender") {
         isValid = false;
         alert("Missing parameter :" + arrInput[i]);
         break;
@@ -86,17 +71,15 @@ class ModalUser extends Component {
     return isValid;
   };
 
-  handleAddNewUser = () => {
+  handlSaveUser = () => {
     let isValid = this.checkValidateInput();
     if (isValid === true) {
-      // call API create Modal
+      // call API Edit user Modal
 
-      this.props.createNewUser(this.state);
+      this.props.editUser(this.state);
     }
   };
   render() {
-    // console.log("check child props :", this.props);
-    //console.log("check child open modal :", this.props.isOpen);
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -111,7 +94,7 @@ class ModalUser extends Component {
             this.toggle();
           }}
         >
-          Create a new user
+          Edit a new user
         </ModalHeader>
         <ModalBody>
           <div className="modal-user-body">
@@ -123,7 +106,7 @@ class ModalUser extends Component {
                   this.handleOnchangeInput(event, "email");
                 }}
                 value={this.state.email}
-                //name="email"
+                disabled
               />
             </div>
             <div className="input-container">
@@ -134,7 +117,7 @@ class ModalUser extends Component {
                   this.handleOnchangeInput(event, "passWord")
                 }
                 value={this.state.passWord}
-                //name="passWord"
+                disabled
               />
             </div>
             <div className="input-container">
@@ -145,7 +128,6 @@ class ModalUser extends Component {
                   this.handleOnchangeInput(event, "firstName")
                 }
                 value={this.state.firstName}
-                //name="firstName"
               />
             </div>
             <div className="input-container">
@@ -156,7 +138,6 @@ class ModalUser extends Component {
                   this.handleOnchangeInput(event, "lastName")
                 }
                 value={this.state.lastName}
-                //name="lastName"
               />
             </div>
             <div className="input-container max-width-input">
@@ -165,7 +146,6 @@ class ModalUser extends Component {
                 type="text"
                 onChange={(event) => this.handleOnchangeInput(event, "address")}
                 value={this.state.address}
-                //name="address"
               />
             </div>
             <div className="input-container">
@@ -176,15 +156,14 @@ class ModalUser extends Component {
                   this.handleOnchangeInput(event, "phonenumber")
                 }
                 value={this.state.phonenumber}
-                // name="phonenumber"
               />
             </div>
             <div className="select-container">
               <label>Gender</label>
               <select
-                name="gender"
+                //name="gender"
                 onChange={(event) => this.handleOnchangeInput(event, "gender")}
-                //value={this.state.gender}
+                value={this.state.gender}
               >
                 <option value=""></option>
                 <option value="1">Male</option>
@@ -198,7 +177,6 @@ class ModalUser extends Component {
                 onChange={(event) => this.handleOnchangeInput(event, "roleId")}
                 value={this.state.roleId}
               >
-                <option></option>
                 <option>Admin</option>
                 <option>Doctor</option>
                 <option>Patient</option>
@@ -211,10 +189,10 @@ class ModalUser extends Component {
             className="px-3"
             color="primary"
             onClick={() => {
-              this.handleAddNewUser();
+              this.handlSaveUser();
             }}
           >
-            Add new
+            Save changes
           </Button>{" "}
           <Button
             className="px-3"
@@ -239,4 +217,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUser);
