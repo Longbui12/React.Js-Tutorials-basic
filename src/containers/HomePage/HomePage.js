@@ -6,6 +6,8 @@ import Specialty from "./section/Specialty";
 import MedicalFacilities from "./section/MedicalFacilities";
 import OutstandingDoctor from "./section/OutstandingDoctor";
 import HandBook from "./section/HandBook";
+import About from "./section/About";
+import HomeFooter from "./HomeFooter";
 import "./HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -25,6 +27,8 @@ class HomePage extends Component {
         <MedicalFacilities settings={settings} />
         <OutstandingDoctor settings={settings} />
         <HandBook settings={settings} />
+        <About />
+        <HomeFooter />
       </div>
     );
   }
