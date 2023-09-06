@@ -71,7 +71,7 @@ class ModalEditUser extends Component {
     return isValid;
   };
 
-  handlSaveUser = () => {
+  handleSaveUser = () => {
     let isValid = this.checkValidateInput();
     if (isValid === true) {
       // call API Edit user Modal
@@ -189,7 +189,7 @@ class ModalEditUser extends Component {
             className="px-3"
             color="primary"
             onClick={() => {
-              this.handlSaveUser();
+              this.handleSaveUser();
             }}
           >
             Save changes

@@ -16,9 +16,9 @@ class About extends Component {
               height="400px"
               src="https://www.youtube.com/embed/A-tX5PI3V0o"
               title="Andree Right Hand - Chơi Như Tụi Mỹ | Official MV"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+              allowfullScreen
             ></iframe>
           </div>
           <div className="content-right">
