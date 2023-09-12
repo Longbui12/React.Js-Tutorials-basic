@@ -7,6 +7,7 @@ const initialState = {
   genders: [],
   roles: [],
   positions: [],
+  users: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -38,20 +39,18 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.FETCH_POSITION_START:
       let result = { ...state };
       copyState.isLoadingPosition = true;
-      //  console.log("Long bùi fire fetch position start :", action);
+
       return {
         ...result,
       };
     case actionTypes.FETCH_POSITION_SUCCESS:
       state.positions = action.data;
       state.isLoadingPosition = false;
-      // console.log("Long bùi fire fetch position success :", action);
+
       return {
         ...state,
       };
     case actionTypes.FETCH_POSITION_FAILED:
-      // console.log("Long bùi fire fetch position failed :", action);
-
       state.isLoadingPosition = false;
       state.positions = [];
       return {
@@ -61,26 +60,33 @@ const adminReducer = (state = initialState, action) => {
     case actionTypes.FETCH_ROLE_START:
       let data = { ...state };
       copyState.isLoadingRole = true;
-      //  console.log("Long bùi fire fetch role start :", action);
+
       return {
         ...data,
       };
     case actionTypes.FETCH_ROLE_SUCCESS:
       state.roles = action.data;
-      state.isLoadingRole = false;
-      // console.log("Long bùi fire fetch role success :", action);
+
       return {
         ...state,
       };
     case actionTypes.FETCH_ROLE_FAILED:
-      // console.log("Long bùi fire fetch role failed :", action);
-
-      state.isLoadingRole = false;
       state.roles = [];
       return {
         ...state,
       };
 
+    // CREATE USER
+    case actionTypes.FETCH_ALL_USER_SUCCESS:
+      state.users = action.users;
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_USER_FAILED:
+      state.users = [];
+      return {
+        ...state,
+      };
     default:
       return state;
   }

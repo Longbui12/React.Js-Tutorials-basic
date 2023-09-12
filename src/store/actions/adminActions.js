@@ -2,8 +2,11 @@ import actionTypes from "./actionTypes";
 import {
   getAllCodeService,
   createNewUserService,
+  getAllUsers,
+  deleteUserService,
 } from "../../services/userService";
 
+import { toast } from "react-toastify";
 // start doing end
 
 // export const fetchGenderStart = () => ({
@@ -94,6 +97,7 @@ export const fetchRoleFailed = () => ({
   type: actionTypes.FETCH_ROLE_FAILED,
 });
 
+// CREATE NEW USER
 export const createNewUser = (data) => {
   return async (dispatch, getState) => {
     try {
@@ -101,11 +105,15 @@ export const createNewUser = (data) => {
       console.log("LOng bui check create user redux :", res);
       if (res && res.errCode === 0) {
         dispatch(saveUserSuccess());
+        toast.success("Create new user success !");
+        dispatch(fetchAllUserStart());
       } else {
         dispatch(saveUserFailed());
+        toast.warn("Create new user failed !");
       }
     } catch (e) {
       dispatch(saveUserFailed());
+      toast.warn("fetch All user failed !");
       console.log("saveUserFailed error :", e);
     }
   };
@@ -117,4 +125,63 @@ export const saveUserSuccess = () => ({
 
 export const saveUserFailed = () => ({
   type: actionTypes.CREATE_USER_FAILED,
+});
+
+// DELETE USER
+
+export const deleteAUser = (userId) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteUserService(userId);
+      console.log("Long bui check delete user redux :", res);
+      if (res && res.errCode === 0) {
+        dispatch(deleteUserSuccess());
+        toast.success("delete user success !");
+        dispatch(fetchAllUserStart());
+      } else {
+        dispatch(deleteUserFailed());
+        toast.warn("delete user failed !");
+      }
+    } catch (e) {
+      dispatch(deleteUserFailed());
+      toast.warn("delete user failed !");
+      console.log("deleteUserFailed error :", e);
+    }
+  };
+};
+
+export const deleteUserSuccess = () => ({
+  type: actionTypes.DELETE_USER_SUCCESS,
+});
+
+export const deleteUserFailed = () => ({
+  type: actionTypes.DELETE_USER_FAILED,
+});
+
+// TABLE MANAGERUSER
+export const fetchAllUserStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: actionTypes.FETCH_GENDER_START });
+      let res = await getAllUsers("ALL");
+
+      if (res && res.errCode === 0) {
+        dispatch(fetchAllUserSuccess(res.users.reverse()));
+      } else {
+        dispatch(fetchAllUserFailed());
+      }
+    } catch (e) {
+      dispatch(fetchAllUserFailed());
+      console.log("fetchAllUserStart error :", e);
+    }
+  };
+};
+
+export const fetchAllUserSuccess = (data) => ({
+  type: actionTypes.FETCH_ALL_USER_SUCCESS,
+  users: data,
+});
+
+export const fetchAllUserFailed = () => ({
+  type: actionTypes.FETCH_ALL_USER_FAILED,
 });
