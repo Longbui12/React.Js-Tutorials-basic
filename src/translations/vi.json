@@ -50,7 +50,9 @@
         "role" : "Vai trò",
         "image" : "Ảnh đại diện",
         "save" : "Lưu user",
-        "upload-image" : "Tải ảnh"
+        "upload-image" : "Tải ảnh",
+        "edit" : "Lưu thay đổi"
+
     }
     
 }

@@ -51,6 +51,7 @@
         "role" : "Role",
         "image": "Avatar",
         "save" : "Save user",
-        "upload-image" : "Upload image"
+        "upload-image" : "Upload image",
+        "edit" : "Edit user"
     }
 }
