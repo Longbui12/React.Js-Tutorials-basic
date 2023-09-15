@@ -52,7 +52,10 @@
         "save" : "Lưu user",
         "upload-image" : "Tải ảnh",
         "edit" : "Lưu thay đổi"
-
-    }
+     },
+     "homepage" : {
+        "outstanding-doctor" : "Bác sĩ nổi bật tuần qua",
+        "See-more" : "Xem thêm"
+     }
     
 }
