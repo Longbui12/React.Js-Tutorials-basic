@@ -8,9 +8,9 @@ import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import "./ManageDoctor.scss";
 import Select from "react-select";
-import { LANGUAGES } from "../../../utils";
+import { LANGUAGES, CRUD_ACTIONS } from "../../../utils";
 import { getDetailInforDoctor } from "../../../services/userService";
-import { CRUD_ACTIONS } from "../../../utils/constant";
+
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
 class ManageDoctor extends Component {
@@ -99,7 +99,6 @@ class ManageDoctor extends Component {
         hasOldData: false,
       });
     }
-    console.log("check response :", res);
   };
   handleOnChangeDesc = (event) => {
     this.setState({
