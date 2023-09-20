@@ -63,7 +63,7 @@ class Login extends Component {
         }
       }
       //console.log(e);
-      console.log("toilalong : ", error.response);
+      //  console.log("toilalong : ", error.response);
     }
   };
 
