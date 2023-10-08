@@ -10,7 +10,6 @@ class DoctorExtraInfor extends Component {
     super(props);
     this.state = {
       isShowDetailInfor: false,
-      isShowDetailInforInsurance: false,
 
       extraInfor: {},
     };
@@ -36,14 +35,9 @@ class DoctorExtraInfor extends Component {
       isShowDetailInfor: status,
     });
   };
-  showHideDetailInforInsurance = (status) => {
-    this.setState({
-      isShowDetailInforInsurance: status,
-    });
-  };
+
   render() {
-    let { isShowDetailInfor, isShowDetailInforInsurance, extraInfor } =
-      this.state;
+    let { isShowDetailInfor, extraInfor } = this.state;
     let { language } = this.props;
     console.log("check state", this.state);
     return (
@@ -155,46 +149,6 @@ class DoctorExtraInfor extends Component {
               </div>
             </>
           )}
-          {/* =========================================== */}
-          {isShowDetailInforInsurance === false && (
-            <div className="short-infor">
-              LOẠI BẢO HIỂM ÁP DỤNG.
-              <span
-                className="detail"
-                onClick={() => this.showHideDetailInforInsurance(true)}
-              >
-                Xem chi tiết
-              </span>{" "}
-            </div>
-          )}
-          {isShowDetailInforInsurance === true && (
-            <>
-              <div className="title-price">LOẠI BẢO HIỂM ÁP DỤNG.</div>
-              <div className="detail-infor">
-                <div className="price">
-                  <span className="left">Bảo hiểm Y tế nhà nước</span>
-                </div>
-                <div className="note">Không áp dụng</div>
-              </div>
-
-              <div className="detail-infor">
-                <div className="price">
-                  <span className="left">Bảo hiểm bảo lãnh trực tiếp</span>
-                </div>
-                <div className="note">
-                  Phòng khám hiện không áp dụng bảo hiểm bảo lạnh trực tiếp và
-                  chưa có xuất hóa đơn tài chính (hóa đơn đỏ)
-                </div>
-              </div>
-
-              <div className="hide-price">
-                <span onClick={() => this.showHideDetailInforInsurance(false)}>
-                  Thu gọn
-                </span>{" "}
-              </div>
-            </>
-          )}
-          {/* =========================================== */}
         </div>
       </div>
     );
