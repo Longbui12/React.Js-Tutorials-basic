@@ -180,7 +180,7 @@ class BookingModal extends Component {
     if (dataTime && !_.isEmpty(dataTime)) {
       doctorId = dataTime.doctorId;
     }
-    console.log("check dataTime :", dataTime);
+
     //let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : ''
 
     return (
