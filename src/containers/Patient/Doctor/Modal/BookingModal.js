@@ -11,6 +11,8 @@ import { LANGUAGES } from "../../../../utils";
 import Select from "react-select";
 import { postPatientBookAppointment } from "../../../../services/userService";
 import { toast } from "react-toastify";
+import moment from "moment";
+
 class BookingModal extends Component {
   constructor(props) {
     super(props);
@@ -88,29 +90,69 @@ class BookingModal extends Component {
   };
 
   //=====================================
-  // checkValidateInput = () => {
-  //   let isValid = true;
-  //   let arrInput = [
-  //     "fullName",
-  //     "phoneNumber",
-  //     "email",
-  //     "address",
-  //     "reason",
-  //     "birthday",
-  //     "selectedGender",
-  //   ];
-  //   for (let i = 0; i < arrInput.length; i++) {
-  //     if (!this.state[arrInput[i]] && arrInput[i] !== "gender") {
-  //       isValid = false;
-  //       alert("Missing parameter :" + arrInput[i]);
-  //       break;
-  //     }
-  //   }
-  //   return isValid;
-  // };
+  checkValidateInput = () => {
+    let isValid = true;
+    let arrInput = [
+      "fullName",
+      "phoneNumber",
+      "email",
+      "address",
+      "reason",
+      "birthday",
+      "selectedGender",
+    ];
+    for (let i = 0; i < arrInput.length; i++) {
+      if (!this.state[arrInput[i]] && arrInput[i] !== "gender") {
+        isValid = false;
+        alert("Missing parameter :" + arrInput[i]);
+        break;
+      }
+    }
+    return isValid;
+  };
   // ====================================
+
+  buildTimeBooking = (dataTime) => {
+    let { language } = this.props;
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let time =
+        language === LANGUAGES.VI
+          ? dataTime.timeTypeData.valueVi
+          : dataTime.timeTypeData.valueEn;
+
+      let date =
+        language === LANGUAGES.VI
+          ? moment.unix(+dataTime.date / 1000).format("dddd - DD/MM/YYYY")
+          : moment
+              .unix(+dataTime.date / 1000)
+              .locale("en")
+              .format("ddd - MM/DD/YYYY");
+      return `${time} - ${date}`;
+    }
+    return "";
+  };
+
+  buildDoctorName = (dataTime) => {
+    let { language } = this.props;
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let name =
+        language === LANGUAGES.VI
+          ? `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+          : `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`;
+      return name;
+    }
+    return "";
+  };
+
   handleConfirmBooking = async () => {
+    let isValid = this.checkValidateInput();
+    // if (isValid === true) {
+    //   this.props.editUser(this.state);
+    // }
+
     let date = new Date(this.state.birthday).getTime();
+    let timeString = this.buildTimeBooking(this.props.dataTime);
+    let doctorName = this.buildDoctorName(this.props.dataTime);
     let res = await postPatientBookAppointment({
       fullName: this.state.fullName,
       phoneNumber: this.state.phoneNumber,
@@ -121,6 +163,9 @@ class BookingModal extends Component {
       selectedGender: this.state.selectedGender.value,
       doctorId: this.state.doctorId,
       timeType: this.state.timeType,
+      language: this.props.language,
+      timeString: timeString,
+      doctorName: doctorName,
     });
     if (res && res.errCode === 0) {
       toast.success("Booking a new appointment succeed !");
@@ -128,11 +173,6 @@ class BookingModal extends Component {
     } else {
       toast.error("Booking a new appointment error !");
     }
-
-    // let isValid = this.checkValidateInput();
-    // if (isValid === true) {
-    //   this.props.editUser(this.state);
-    // }
   };
   render() {
     let { isOpenModal, closeBookingModal, dataTime } = this.props;
@@ -140,6 +180,7 @@ class BookingModal extends Component {
     if (dataTime && !_.isEmpty(dataTime)) {
       doctorId = dataTime.doctorId;
     }
+    console.log("check dataTime :", dataTime);
     //let doctorId = dataTime && !_.isEmpty(dataTime) ? dataTime.doctorId : ''
 
     return (
