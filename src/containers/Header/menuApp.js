@@ -49,11 +49,11 @@ export const adminMenu = [
   },
   {
     // quản lý chuyên khoa
-    name: "menu.admin.specailty",
+    name: "menu.admin.specialty",
     menus: [
       {
-        name: "menu.admin.manage-specailty",
-        link: "/system/manage-specailty",
+        name: "menu.admin.manage-specialty",
+        link: "/system/manage-specialty",
       },
     ],
   },

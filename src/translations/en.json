@@ -32,8 +32,8 @@
             "crud-redux" : "CRUD Redux",
             "clinic" : "Clinics",
             "manage-clinic" : "Manage clinics",
-            "specailty" : "Specailties",
-            "manage-specailty" : "Manage specailties",
+            "specialty" : "Specailties",
+            "manage-specialty" : "Manage specailties",
             "handbook" : "Handbook",
             "manage-handbook": "Manage handbook"
         },
