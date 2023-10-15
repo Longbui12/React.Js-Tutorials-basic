@@ -58,8 +58,9 @@
         "edit" : "Edit user"
     },
     "homepage" : {
-        "outstanding-doctor" : "Doctor featured last week",
-        "See-more" : "See more "
+        "outstanding-docto r" : "Doctor featured last week",
+        "see-more" : "See more ",
+        "specialty-popular" : "Popular specialties"
     },
     "manage-schedule" : {
         "title" : "Manage doctor's medical examination plans",
