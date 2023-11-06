@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "./HomeHeader";
-import Specialty from "./Section/specialty";
+import Specialty from "./Section/Specialty";
 import MedicalFacilities from "./Section/MedicalFacilities";
 import OutstandingDoctor from "./Section/OutstandingDoctor";
 import HandBook from "./Section/HandBook";
@@ -21,15 +21,17 @@ class HomePage extends Component {
       slidesToScroll: 1,
     };
     return (
-      <div>
-        <HomeHeader isShowBanner={true} />
-        <Specialty settings={settings} />
-        <MedicalFacilities settings={settings} />
-        <OutstandingDoctor settings={settings} />
-        <HandBook settings={settings} />
-        <About />
-        <HomeFooter />
-      </div>
+      <>
+        <div>
+          <HomeHeader isShowBanner={true} />
+          <Specialty settings={settings} />
+          <MedicalFacilities settings={settings} />
+          <OutstandingDoctor settings={settings} />
+          <HandBook settings={settings} />
+          <About />
+          <HomeFooter />
+        </div>
+      </>
     );
   }
 }
