@@ -11,7 +11,6 @@ import "./HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { withRouter } from "react-router";
 class HomePage extends Component {
   render() {
     let settings = {
@@ -45,6 +44,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(HomePage)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

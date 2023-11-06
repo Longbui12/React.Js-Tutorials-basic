@@ -5,6 +5,7 @@ import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
 import { getAllSpecialty } from "../../../services/userService";
 import { withRouter } from "react-router";
+
 class Specialty extends Component {
   constructor(props) {
     super(props);
