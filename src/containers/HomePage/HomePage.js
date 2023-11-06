@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "./HomeHeader";
-import Specialty from "./Section/Specialty.js";
+import Specialty from "./Section/Specialty";
 import MedicalFacilities from "./Section/MedicalFacilities";
 import OutstandingDoctor from "./Section/OutstandingDoctor";
 import HandBook from "./Section/HandBook";
@@ -10,6 +10,8 @@ import HomeFooter from "./HomeFooter";
 import "./HomePage.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import { withRouter } from "react-router";
 class HomePage extends Component {
   render() {
     let settings = {
@@ -43,4 +45,6 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(HomePage)
+);
